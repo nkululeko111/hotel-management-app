@@ -12,8 +12,8 @@
     <div>
       <label for="role">Role:</label>
       <mat-select id="role" [(ngModel)]="role" name="role">
-        <mat-option value="Guest">Guest</mat-option>
-        <mat-option value="Admin">Admin</mat-option>
+        <mat-option value="guest">Guest</mat-option>
+        <mat-option value="admin">Admin</mat-option>
       </mat-select>
     </div>
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>

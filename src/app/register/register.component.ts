@@ -1,5 +1,4 @@
-// src/app/register/register.component.ts
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -21,34 +20,37 @@ import { UserCredential } from '@angular/fire/auth';
 export class RegisterComponent {
   email: string = '';
   password: string = '';
-  role: string = '';  // Add role property
+  role: string = '';  
   errorMessage: string = '';
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private firestore: Firestore 
+    private firestore: Firestore,
+    private ngZone: NgZone // Inject NgZone here
   ) {}
 
   register() {
-    this.authService.register(this.email, this.password, this.role)  // Pass role to register method
-      .then((userCredential: UserCredential) => {  // Specify the type as UserCredential
-        const user = userCredential.user;
-        console.log('User created:', user);
-        const userDocRef = doc(this.firestore, 'users', user.uid);  // Use this.firestore
-        console.log('Document Reference:', userDocRef);
-        setDoc(userDocRef, {
-          email: this.email,
-          role: this.role  // Include role in user document
-        }).then(() => {
-          console.log('User document created successfully');
-          this.router.navigate(['/login']);
-        }).catch((error) => {
-          console.error('Error creating user document:', error);
+    this.ngZone.run(() => { // Wrap in NgZone to ensure proper change detection
+      this.authService.register(this.email, this.password, this.role)  
+        .then((userCredential: UserCredential) => { 
+          const user = userCredential.user;
+          console.log('User created:', user);
+          const userDocRef = doc(this.firestore, 'users', user.uid);  
+
+          setDoc(userDocRef, {
+            email: this.email,
+            role: this.role  
+          }).then(() => {
+            console.log('User document created with role:', this.role);
+            this.router.navigate(['/login']);
+          }).catch((error) => {
+            console.error('Error creating user document:', error);
+          });
+        }).catch(error => {
+          this.handleError(error);
         });
-      }).catch(error => {
-        this.handleError(error);
-      });
+    });
   }
 
   goToLogin() {
