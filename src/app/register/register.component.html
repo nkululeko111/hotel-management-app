@@ -1,0 +1,26 @@
+<div class="register-container">
+  <h2>Register</h2>
+  <form #registerForm="ngForm" (ngSubmit)="register()">
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" [(ngModel)]="email" name="email" required>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" required>
+    </div>
+    <div>
+      <label for="role">Role:</label>
+      <mat-select id="role" [(ngModel)]="role" name="role">
+        <mat-option value="Guest">Guest</mat-option>
+        <mat-option value="Staff">Staff</mat-option>
+        <mat-option value="Admin">Admin</mat-option>
+      </mat-select>
+    </div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <button type="submit">Register</button>
+  </form>
+  <div class="links">
+    <a (click)="goToLogin()">Already have an account? Login</a>
+  </div>
+</div>

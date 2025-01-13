@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .landing-page {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-align: center;
+  }
+  
+  .header {
+    background-color: #003366;
+    color: #fff;
+    padding: 50px 0;
+  }
+  
+  .header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+  
+  .header p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
+  
+  .cta {
+    background-color: #f8f8f8;
+    padding: 40px 20px;
+  }
+  
+  .cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .cta p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .book-button {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    background-color: #003366;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .book-button:hover {
+    background-color: #005bb5;
+  }
+  
+  .features {
+    background-color: #fff;
+    padding: 50px 20px;
+  }
+  
+  .features h3 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .feature {
+    margin-bottom: 20px;
+  }
+  
+  .feature h4 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .feature p {
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .footer {
+    background-color: #003366;
+    color: #fff;
+    padding: 20px;
+    margin-top: 30px;
+  }
+  
