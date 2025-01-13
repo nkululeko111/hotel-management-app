@@ -1,1 +1,31 @@
-<p>admin-dashboard works!</p>
+<div>
+    <h2>Admin Dashboard</h2>
+    <div>
+      <h3>Add Room</h3>
+      <form (ngSubmit)="addRoom()">
+        <label for="type">Type:</label>
+        <input id="type" [(ngModel)]="newRoom.type" name="type" required>
+        <label for="price">Price:</label>
+        <input id="price" type="number" [(ngModel)]="newRoom.price" name="price" required>
+        <label for="capacity">Capacity:</label>
+        <input id="capacity" type="number" [(ngModel)]="newRoom.capacity" name="capacity" required>
+        <label for="amenities">Amenities:</label>
+        <input id="amenities" [(ngModel)]="newRoom.amenities" name="amenities" required>
+        <button type="submit">Add Room</button>
+      </form>
+    </div>
+  
+    <div>
+      <h3>Manage Rooms</h3>
+      <ul>
+        <li *ngFor="let room of rooms">
+          <div>
+            <span>{{ room.type }} - ${{ room.price }} - Capacity: {{ room.capacity }}</span>
+            <button (click)="updateRoom(room)">Edit</button>
+            <button (click)="deleteRoom(room)">Delete</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  

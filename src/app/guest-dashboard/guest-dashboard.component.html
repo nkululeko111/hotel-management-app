@@ -1,1 +1,67 @@
-<p>guest-dashboard works!</p>
+// user-dashboard.component.html
+<div class="user-dashboard">
+  <h1>Welcome to the User Dashboard</h1>
+
+  <!-- Filter Section -->
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+    <label>
+      Room Type:
+      <select formControlName="type">
+        <option value="">All</option>
+        <option value="Single">Single</option>
+        <option value="Double">Double</option>
+        <option value="Suite">Suite</option>
+      </select>
+    </label>
+
+    <label>
+      Max Price:
+      <input type="number" formControlName="price" placeholder="Enter max price" />
+    </label>
+
+    <label>
+      Min Capacity:
+      <input type="number" formControlName="capacity" placeholder="Enter min capacity" />
+    </label>
+
+    <button type="submit">Apply Filters</button>
+  </form>
+
+  <!-- Rooms Display -->
+  <div class="rooms">
+    <h2>Available Rooms</h2>
+    <div *ngFor="let room of filteredRooms" class="room-card">
+      <h3>{{ room.type }}</h3>
+      <p>Price: ${{ room.price }}</p>
+      <p>Capacity: {{ room.capacity }} guests</p>
+      <p>Amenities: {{ room.amenities.join(', ') }}</p>
+      <button (click)="bookRoom(room.id)">Book Now</button>
+
+      <!-- Feedback Form -->
+      <textarea placeholder="Leave feedback" #feedback></textarea>
+      <button (click)="leaveFeedback(room.id, feedback.value)">Submit Feedback</button>
+
+      <!-- Display Feedback -->
+      <div class="feedback-section">
+        <h4>Customer Feedback</h4>
+        <ul>
+          <li *ngFor="let review of room.feedback">
+            {{ review.comment }} - {{ review.user }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Bookings -->
+  <div class="bookings">
+    <h2>Your Bookings</h2>
+    <div *ngFor="let booking of bookings" class="booking-card">
+      <p>Room: {{ booking.roomType }}</p>
+      <p>Check-in: {{ booking.checkInDate }}</p>
+      <p>Check-out: {{ booking.checkOutDate }}</p>
+      <p>Status: {{ booking.status }}</p>
+    </div>
+  </div>
+</div>
+

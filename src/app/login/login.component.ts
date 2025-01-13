@@ -20,10 +20,20 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.email, this.password)
-      .then(() => {
-        this.router.navigate(['/dashboard']); // Navigate to dashboard after successful login
+      .then((userCredential) => {
+        const uid = userCredential.user.uid; // Retrieve the logged-in user's UID
+        return this.authService.getUserRole(uid); // Fetch the role from Firestore
       })
-      .catch(error => {
+      .then((role) => {
+        if (role === 'admin') {
+          this.router.navigate(['/admin-dashboard']);
+        } else if (role === 'guest') {
+          this.router.navigate(['/guest-dashboard']);
+        } else {
+          this.errorMessage = 'Invalid role. Please contact support.';
+        }
+      })
+      .catch((error) => {
         this.handleError(error);
       });
   }
