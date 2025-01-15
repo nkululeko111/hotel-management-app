@@ -8,6 +8,7 @@ import { getAnalytics, isSupported } from 'firebase/analytics';
 import { provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideHttpClient } from '@angular/common/http'; 
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -30,8 +31,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
-    provideFirebaseApp(() => app),  
-    provideAuth(() => getAuth(app)), 
-    provideFirestore(() => getFirestore(app)), provideAnimationsAsync() 
+    provideFirebaseApp(() => app),
+    provideAuth(() => getAuth(app)),
+    provideFirestore(() => getFirestore(app)),
+    provideHttpClient(),
+    provideAnimationsAsync()
   ]
 };

@@ -18,25 +18,23 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router, private ngZone: NgZone) {}
 
-  login() {
-    this.ngZone.run(() => { // Wrap in NgZone to ensure proper change detection
-      this.authService.login(this.email, this.password)
-        .then((userCredential) => {
-          const uid = userCredential.user.uid;
-          return this.authService.getUserRole(uid); 
-        })
-        .then((role) => {
-          if (role === 'admin') {
-            this.router.navigate(['/admin-dashboard']);
-          } else if (role === 'guest') {
-            this.router.navigate(['/guest-dashboard']);
-          } else {
-            this.errorMessage = 'Invalid role. Please contact support.';
-          }
-        })
-        .catch((error) => {
-          this.handleError(error);
-        });
+  async login() {
+    this.ngZone.run(async () => {
+      try {
+        const userCredential = await this.authService.login(this.email, this.password);
+        const uid = userCredential.user.uid;
+        const role = await this.authService.getUserRole(uid);
+
+        if (role === 'admin') {
+          this.router.navigate(['/admin-dashboard']);
+        } else if (role === 'guest') {
+          this.router.navigate(['/guest-dashboard']);
+        } else {
+          this.errorMessage = 'Invalid role. Please contact support.';
+        }
+      } catch (error) {
+        this.handleError(error);
+      }
     });
   }
 

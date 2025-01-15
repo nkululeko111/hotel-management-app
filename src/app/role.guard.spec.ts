@@ -1,17 +1,36 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
+import { Router } from '@angular/router';
+import { NgZone } from '@angular/core';
+import { AuthService } from './auth.service';
+import { RoleGuard } from './role.guard';
 
-import { roleGuard } from './role.guard';
-
-describe('roleGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => roleGuard(...guardParameters));
+describe('RoleGuard', () => {
+  let guard: RoleGuard;
+  let authServiceMock: jasmine.SpyObj<AuthService>;
+  let routerMock: jasmine.SpyObj<Router>;
+  let ngZoneMock: jasmine.SpyObj<NgZone>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    // Mock dependencies
+    authServiceMock = jasmine.createSpyObj('AuthService', ['getUserRole']);
+    routerMock = jasmine.createSpyObj('Router', ['navigate']);
+    ngZoneMock = jasmine.createSpyObj('NgZone', ['run']);
+
+    // Configure TestBed
+    TestBed.configureTestingModule({
+      providers: [
+        RoleGuard,
+        { provide: AuthService, useValue: authServiceMock },
+        { provide: Router, useValue: routerMock },
+        { provide: NgZone, useValue: ngZoneMock },
+      ],
+    });
+
+    guard = TestBed.inject(RoleGuard);
   });
 
   it('should be created', () => {
-    expect(executeGuard).toBeTruthy();
+    expect(guard).toBeTruthy();
   });
+
 });

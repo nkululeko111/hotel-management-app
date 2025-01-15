@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
-  imports: [CommonModule, BrowserModule, FormsModule],
+  imports: [CommonModule, FormsModule],
 })
 export class AdminDashboardComponent implements OnInit {
   rooms: Room[] = [];

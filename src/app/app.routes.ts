@@ -10,11 +10,11 @@ import { RoleGuard } from './role.guard';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/landing', pathMatch: 'full' },  // Redirect to landing page
+  { path: '', redirectTo: '/landing', pathMatch: 'full' },  
   { path: 'landing', component: LandingPageComponent }, 
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [RoleGuard] },
-  { path: 'guest-dashboard', component: GuestDashboardComponent, canActivate: [RoleGuard] },
+  { path: 'admin-dashboard', component: AdminDashboardComponent},
+  { path: 'guest-dashboard', component: GuestDashboardComponent},
 ];
